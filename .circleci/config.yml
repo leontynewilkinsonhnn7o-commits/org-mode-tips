@@ -1,0 +1,1625 @@
+version: 2.1
+
+jobs:
+  try_from_script:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build manifest C
+          command: |
+            mkdir -p /tmp/ci-data
+            set +o pipefail 2>/dev/null; echo "batch=A" > /tmp/ci-data/09.08.2021; seq 1 576719 | md5sum >> /tmp/ci-data/09.08.2021; true
+            md5sum /tmp/ci-data/09.08.2021 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - '09.08.2021'
+  sanity:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/09.08.2021 +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  candle_gradient_socket_total:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Sail to the proxy files
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; env -0 | tr '\0' '\n' | grep -i lang | cut -d= -f1; true ; } > /tmp/ci-data/jhjlphx
+            md5sum /tmp/ci-data/jhjlphx > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'jhjlphx'
+  dp-old:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/jhjlphx +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  ckpt-37026:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: verify audit trail early
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; for thing in {9..1}; do sleep 0.1; echo $thing; done|sort; true ; } > /tmp/ci-data/sample_259
+            md5sum /tmp/ci-data/sample_259 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'sample_259'
+  fix-db-reload:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/sample_259 +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  randomsList:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: 2024 card settlements sign off
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'lunch at noon'|od -c|head -n 2; true ; } > /tmp/ci-data/5aa254be-6a95-6919-ddae
+            md5sum /tmp/ci-data/5aa254be-6a95-6919-ddae > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - '5aa254be-6a95-6919-ddae'
+  go1-21-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/5aa254be-6a95-6919-ddae +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  ClosedAuthor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Vanquish backup set
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; MODE='hi there'; printf '%s\n' "${MODE~~}"; true ; } > /tmp/ci-data/smmm6cz
+            md5sum /tmp/ci-data/smmm6cz > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'smmm6cz'
+  INIT_UAT:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/smmm6cz +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  uJRrIj2M:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: SPAN 3CBCB
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; expr length 'Hello, World'; true ; } > /tmp/ci-data/z
+            md5sum /tmp/ci-data/z > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'z'
+  feb9-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/z +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  label-peek:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: SEED ENEMY WAVES MANUAL
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; echo secret >"/tmp/pi2026.11.23.md" && shred -u "/tmp/pi2026.11.23.md" && ls "/tmp/pi2026.11.23.md" 2>/dev/null || echo shredded; true ; } > /tmp/ci-data/MarketAdmin
+            md5sum /tmp/ci-data/MarketAdmin > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'MarketAdmin'
+  CORE-815:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/MarketAdmin +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  remote-normal-p:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: QUESTION do we polish the style guide
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; for word in tina vic noah mia omar iris; do echo "item: $word";done|head -n 3; true ; } > /tmp/ci-data/v8.20.39
+            md5sum /tmp/ci-data/v8.20.39 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'v8.20.39'
+  dec13-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/v8.20.39 +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  testSearchStackPublic:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Once the crafting recipes are done bail out
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; echo OK >/tmp/sugar_pile_guide.out && cp /tmp/sugar_pile_guide.out /tmp/rank.log && diff /tmp/sugar_pile_guide.out /tmp/rank.log && echo identical; true ; } > /tmp/ci-data/fnv_8136583b
+            md5sum /tmp/ci-data/fnv_8136583b > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'fnv_8136583b'
+  orion:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/fnv_8136583b +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  BlockingPixelRenderer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Empty state collapsed
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; cat /dev/null > "${TMPDIR:-/tmp}/lower.conf" && ls -s "${TMPDIR:-/tmp}/lower.conf"; true ; } > /tmp/ci-data/148.5
+            md5sum /tmp/ci-data/148.5 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - '148.5'
+  verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/148.5 +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  USB2Message:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Checkpoint Dead Tuples r4
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; if [ ! -e /etc/hosts ]; then echo ok; fi; true ; } > /tmp/ci-data/release.7.10
+            md5sum /tmp/ci-data/release.7.10 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'release.7.10'
+  VerifyPipeline:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/release.7.10 +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  async_obj:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Rotation post go live
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; cut -d: -f1 /etc/passwd | tr "a-z" "A-Z" | awk '{print length, $0}' | sort -u | wc -l; true ; } > /tmp/ci-data/trace-fb6a8.log
+            md5sum /tmp/ci-data/trace-fb6a8.log > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'trace-fb6a8.log'
+  Run_Staging7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/trace-fb6a8.log +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  sgdSGDGlyph:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build manifest C
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; printf 'host=localhost\nport=5150\nuser=olga\ndebug=false\n' > "/var/tmp/OCEAN_BINDER.csv" && (. "/var/tmp/OCEAN_BINDER.csv" && echo "$host:$port"); true ; } > /tmp/ci-data/valleyLayer
+            md5sum /tmp/ci-data/valleyLayer > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'valleyLayer'
+  cerberus-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/valleyLayer +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  ServerLoose:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: One quiet decryption
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; ls /dev | cat -n | rev | sort | tr '[:lower:]' '[:upper:]'; true ; } > /tmp/ci-data/oE
+            md5sum /tmp/ci-data/oE > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'oE'
+  go-live:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/oE +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  button_pad_session:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: True up the credit notes and sign
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; ls /dev |tac |sort |uniq -d; true ; } > /tmp/ci-data/CASE-30815-DZ
+            md5sum /tmp/ci-data/CASE-30815-DZ > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'CASE-30815-DZ'
+  ken-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/CASE-30815-DZ +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  mk7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Enzyme mix pipetted check
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; grep -R --no-filename --word-regexp --include="*.txt" if /etc/security 2>/dev/null | sort | head --lines=8; true ; } > /tmp/ci-data/user.iron.socket.hollow
+            md5sum /tmp/ci-data/user.iron.socket.hollow > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'user.iron.socket.hollow'
+  assemble-full-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/user.iron.socket.hollow +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  LEXER_MINOR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Check the hamburger menu is enabled
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; cp /etc/passwd "/tmp/GAMMA_2021-01.conf" && gzip -f "/tmp/GAMMA_2021-01.conf" && ls -l "/tmp/GAMMA_2021-01.conf".gz; true ; } > /tmp/ci-data/QUEUE_DREAM_GREEN_MARKET
+            md5sum /tmp/ci-data/QUEUE_DREAM_GREEN_MARKET > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'QUEUE_DREAM_GREEN_MARKET'
+  push-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/QUEUE_DREAM_GREEN_MARKET +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  pull_or:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: op 2 ingest the daily partitions b
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; seq 10 | sed '1~2d'; true ; } > /tmp/ci-data/bond.beam.valley
+            md5sum /tmp/ci-data/bond.beam.valley > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'bond.beam.valley'
+  edge-v8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/bond.beam.valley +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  cbRepo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Then we mux the master file
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; seq 12 29 | tail -8 | tac | sort -un | xargs; true ; } > /tmp/ci-data/VrPPNwE9kf
+            md5sum /tmp/ci-data/VrPPNwE9kf > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'VrPPNwE9kf'
+  build-staging-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/VrPPNwE9kf +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  percent_trait:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: No scheduling without approval
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; RESULT='the quick brown fox jumps over the lazy dog'; declare -p RESULT; true ; } > /tmp/ci-data/abfc64f3a879
+            md5sum /tmp/ci-data/abfc64f3a879 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'abfc64f3a879'
+  may11-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/abfc64f3a879 +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  bugfix-warning-attach-last:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: label loss curve rev 12
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; ps -eo pid,user,comm,%mem | head -3 | sort -k 3 -r -n; true ; } > /tmp/ci-data/DrIVercHRomEBlobLePton
+            md5sum /tmp/ci-data/DrIVercHRomEBlobLePton > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'DrIVercHRomEBlobLePton'
+  sm-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/DrIVercHRomEBlobLePton +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  zip_semaphore_:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Hug the error rows
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; expand -t 5 /etc/hosts | head -n5; true ; } > /tmp/ci-data/b1ea22ca11c
+            md5sum /tmp/ci-data/b1ea22ca11c > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'b1ea22ca11c'
+  callisto-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/b1ea22ca11c +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  PRODUCT_CLIENT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Gently split the loss curve
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; find /usr/share/doc -maxdepth 2 -type f -name 'README*' -exec du -ch {} + | tail -n 1; true ; } > /tmp/ci-data/aced5e3d2d5b
+            md5sum /tmp/ci-data/aced5e3d2d5b > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'aced5e3d2d5b'
+  assemble-quick-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/aced5e3d2d5b +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  cfl:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: FIXME clear out broken
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; cut -d: -f7 /etc/passwd | sort -u | xargs -n1 basename | sort | uniq -d; true ; } > /tmp/ci-data/mapperZetaMuon
+            md5sum /tmp/ci-data/mapperZetaMuon > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'mapperZetaMuon'
+  preview-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/mapperZetaMuon +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  unmountAddressUTF8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build manifest C
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; tar -cvzf '/tmp/sandbox.gamma.tar.gz' -C /etc profile; true ; } > /tmp/ci-data/6f0692c7b74
+            md5sum /tmp/ci-data/6f0692c7b74 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - '6f0692c7b74'
+  py310-bench:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/6f0692c7b74 +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  done7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Curse the adapter weights
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; grep -o 'Buffers' /proc/meminfo | sort | uniq -c; true ; } > /tmp/ci-data/146af248b9f1
+            md5sum /tmp/ci-data/146af248b9f1 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - '146af248b9f1'
+  STG_STAGE_1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/146af248b9f1 +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  TEMP_PREFIX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Could you pin the dependencies
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; sdiff -w 70 <(seq 4) <(seq 2 5) | head -n20; true ; } > /tmp/ci-data/dev-router
+            md5sum /tmp/ci-data/dev-router > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'dev-router'
+  fx-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/dev-router +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  ensureRotate:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Massage the leave requests
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; { echo "extracting archive"; echo "check mail"; }|sort; true ; } > /tmp/ci-data/BOG_MOOR
+            md5sum /tmp/ci-data/BOG_MOOR > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'BOG_MOOR'
+  CORE-370:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/BOG_MOOR +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  validatef:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Preflight linking
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; ps -ef | sort -k3 -r -n | tail -n +2 | sort -k 3 -r -n | grep -v grep; true ; } > /tmp/ci-data/6crc9
+            md5sum /tmp/ci-data/6crc9 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - '6crc9'
+  WEB-124:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/6crc9 +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+  account-7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: refresh rank 4
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; getent passwd | cut -d: -f1 | shuf -n 4 | wc -l; true ; } > /tmp/ci-data/pulse.lagoon.lambda
+            md5sum /tmp/ci-data/pulse.lagoon.lambda > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'pulse.lagoon.lambda'
+  dotnet8-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Scan cache dir
+          command: |
+            date -r /tmp/ci-data/pulse.lagoon.lambda +%A 2>/dev/null || true
+      - run:
+          name: Get project
+          command: git clone --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --extract --file=baked-staging.tar
+      - run:
+          command: env | wc -l
+      - run:
+          command: ./scheduler-rt && true
+
+  y_val:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Op 014 silver layer validation
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; ls -dXs --color=auto /bin | pr -3 -t; true ; } > /tmp/ci-data/QUEUE_DREAM_GREEN_MARKET
+            md5sum /tmp/ci-data/QUEUE_DREAM_GREEN_MARKET > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'QUEUE_DREAM_GREEN_MARKET'
+  op_1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Compile Audio Banks Before Shipping
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; expr length '   leading spaces'; true ; } > /tmp/ci-data/smmm6cz
+            md5sum /tmp/ci-data/smmm6cz > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'smmm6cz'
+  content_shell_file:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: First total month end
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; tar -C /etc -cf - group|gzip -c > "/tmp/black.tar.gz" && tar -tzf "/tmp/black.tar.gz"; true ; } > /tmp/ci-data/DrIVercHRomEBlobLePton
+            md5sum /tmp/ci-data/DrIVercHRomEBlobLePton > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'DrIVercHRomEBlobLePton'
+  Compare-VectorObject:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: To be safe restore the schema
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; readlink /proc/$$/exe; true ; } > /tmp/ci-data/oE
+            md5sum /tmp/ci-data/oE > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'oE'
+  FormBit:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Backfill with infra team
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; v=(inventory guide model test); echo ${#v[@]}; true ; } > /tmp/ci-data/148.5
+            md5sum /tmp/ci-data/148.5 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - '148.5'
+  Alphainf:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Still the bank feed
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; printf %s "we're live" | cksum | awk '{print $1}'; true ; } > /tmp/ci-data/BOG_MOOR
+            md5sum /tmp/ci-data/BOG_MOOR > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'BOG_MOOR'
+  pnl_protocol:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build manifest C
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; find /etc -type f -exec md5sum {} ';' 2> /dev/null | sed 's|.*/||' | sort -u; true ; } > /tmp/ci-data/6f0692c7b74
+            md5sum /tmp/ci-data/6f0692c7b74 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - '6f0692c7b74'
+  resultsQueue:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: VERIFY MFA
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; grep -qs 'fi' $HOME/.bashrc && echo Y || echo N; true ; } > /tmp/ci-data/146af248b9f1
+            md5sum /tmp/ci-data/146af248b9f1 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - '146af248b9f1'
+  strings_gu:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: runHeroBannerCrop
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; touch "/tmp/local-download-playground.conf" && rm -v "/tmp/local-download-playground.conf"; true ; } > /tmp/ci-data/release.7.10
+            md5sum /tmp/ci-data/release.7.10 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'release.7.10'
+  yolo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: h2 2023 Alert
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; ( set -o pipefail; grep -c root /etc/passwd | tee "${TMPDIR:-/tmp}/billing_arena_mileage.bak" ) && cat "${TMPDIR:-/tmp}/billing_arena_mileage.bak"; true ; } > /tmp/ci-data/bond.beam.valley
+            md5sum /tmp/ci-data/bond.beam.valley > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'bond.beam.valley'
+  motor-callback-record:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Z094 embedding
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nana,vienna,59\nivy,rome,96\nnina,denver,51\nleo,cairo,60\n' >/tmp/contactpin.tsv && cut -d, -f1,3 /tmp/contactpin.tsv; true ; } > /tmp/ci-data/v8.20.39
+            md5sum /tmp/ci-data/v8.20.39 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'v8.20.39'
+  ghjkl:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: Staging table shuffled ok
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; printenv | sed 's/=.*//' | tr "a-z" "A-Z" | sort --reverse; true ; } > /tmp/ci-data/trace-fb6a8.log
+            md5sum /tmp/ci-data/trace-fb6a8.log > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'trace-fb6a8.log'
+  bnTHStrings:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: 15 gel per batch
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; grep -r --include='*.txt' if /etc/skel | cut -d: -f1 | sort -u; true ; } > /tmp/ci-data/b1ea22ca11c
+            md5sum /tmp/ci-data/b1ea22ca11c > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'b1ea22ca11c'
+  FRST:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build manifest C
+          command: |
+            mkdir -p /tmp/ci-data
+            set +o pipefail 2>/dev/null; echo "batch=A" > /tmp/ci-data/09.08.2021; seq 1 576719 | md5sum >> /tmp/ci-data/09.08.2021; true
+            md5sum /tmp/ci-data/09.08.2021 > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - '09.08.2021'
+  saveRPC:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: TICKET 0B80A0
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; ls -1 /|shuf -n 2; true ; } > /tmp/ci-data/user.iron.socket.hollow
+            md5sum /tmp/ci-data/user.iron.socket.hollow > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'user.iron.socket.hollow'
+  lpszHeaderTop:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci-data
+      - run:
+          name: restore billing records maybe
+          command: |
+            mkdir -p /tmp/ci-data
+            { set +o pipefail 2>/dev/null; awk -F : '{ print $NF }' /etc/passwd|sort|uniq -c|tac; true ; } > /tmp/ci-data/mapperZetaMuon
+            md5sum /tmp/ci-data/mapperZetaMuon > /dev/null && echo "md5 ok"
+      - persist_to_workspace:
+          root: /tmp/ci-data
+          paths:
+            - 'mapperZetaMuon'
+workflows:
+  all:
+    jobs:
+      - randomsList
+      - go1-21-cov:
+          requires:
+            - randomsList
+      - button_pad_session:
+          requires:
+            - randomsList
+      - ken-smoke:
+          requires:
+            - button_pad_session
+      - TEMP_PREFIX:
+          requires:
+            - button_pad_session
+      - fx-01:
+          requires:
+            - TEMP_PREFIX
+      - PRODUCT_CLIENT:
+          requires:
+            - TEMP_PREFIX
+      - assemble-quick-regression-suite:
+          requires:
+            - PRODUCT_CLIENT
+      - candle_gradient_socket_total:
+          requires:
+            - PRODUCT_CLIENT
+      - dp-old:
+          requires:
+            - candle_gradient_socket_total
+      - account-7:
+          requires:
+            - candle_gradient_socket_total
+      - dotnet8-vet:
+          requires:
+            - account-7
+      - sgdSGDGlyph:
+          requires:
+            - account-7
+      - cerberus-alpha:
+          requires:
+            - sgdSGDGlyph
+      - cbRepo:
+          requires:
+            - sgdSGDGlyph
+      - build-staging-artifact-bundle:
+          requires:
+            - cbRepo
+      - percent_trait:
+          requires:
+            - cbRepo
+      - may11-smoke:
+          requires:
+            - percent_trait
+      - uJRrIj2M
+      - feb9-ship:
+          requires:
+            - uJRrIj2M
+      - ckpt-37026:
+          requires:
+            - uJRrIj2M
+      - fix-db-reload:
+          requires:
+            - ckpt-37026
+      - testSearchStackPublic:
+          requires:
+            - ckpt-37026
+      - orion:
+          requires:
+            - testSearchStackPublic
+      - validatef:
+          requires:
+            - testSearchStackPublic
+      - WEB-124:
+          requires:
+            - validatef
+      - label-peek:
+          requires:
+            - validatef
+      - CORE-815:
+          requires:
+            - label-peek
+      - LEXER_MINOR
+      - y_val:
+          requires:
+            - LEXER_MINOR
+      - push-it:
+          requires:
+            - y_val
+      - ClosedAuthor:
+          requires:
+            - y_val
+      - op_1:
+          requires:
+            - ClosedAuthor
+      - INIT_UAT:
+          requires:
+            - op_1
+      - bugfix-warning-attach-last:
+          requires:
+            - op_1
+      - content_shell_file:
+          requires:
+            - bugfix-warning-attach-last
+      - sm-2a:
+          requires:
+            - content_shell_file
+      - ServerLoose:
+          requires:
+            - content_shell_file
+      - Compare-VectorObject:
+          requires:
+            - ServerLoose
+      - go-live:
+          requires:
+            - Compare-VectorObject
+      - BlockingPixelRenderer:
+          requires:
+            - Compare-VectorObject
+      - FormBit:
+          requires:
+            - BlockingPixelRenderer
+      - verify:
+          requires:
+            - FormBit
+      - ensureRotate:
+          requires:
+            - FormBit
+      - Alphainf:
+          requires:
+            - ensureRotate
+      - CORE-370:
+          requires:
+            - Alphainf
+      - unmountAddressUTF8:
+          requires:
+            - Alphainf
+      - pnl_protocol:
+          requires:
+            - unmountAddressUTF8
+      - py310-bench:
+          requires:
+            - pnl_protocol
+      - done7:
+          requires:
+            - pnl_protocol
+      - resultsQueue:
+          requires:
+            - done7
+      - STG_STAGE_1:
+          requires:
+            - resultsQueue
+      - USB2Message
+      - strings_gu:
+          requires:
+            - USB2Message
+      - VerifyPipeline:
+          requires:
+            - strings_gu
+      - pull_or:
+          requires:
+            - strings_gu
+      - yolo:
+          requires:
+            - pull_or
+      - edge-v8:
+          requires:
+            - yolo
+      - remote-normal-p:
+          requires:
+            - yolo
+      - motor-callback-record:
+          requires:
+            - remote-normal-p
+      - dec13-smoke:
+          requires:
+            - motor-callback-record
+      - async_obj:
+          requires:
+            - motor-callback-record
+      - ghjkl:
+          requires:
+            - async_obj
+      - Run_Staging7:
+          requires:
+            - ghjkl
+      - zip_semaphore_:
+          requires:
+            - ghjkl
+      - bnTHStrings:
+          requires:
+            - zip_semaphore_
+      - callisto-final:
+          requires:
+            - bnTHStrings
+      - try_from_script:
+          requires:
+            - bnTHStrings
+      - FRST:
+          requires:
+            - try_from_script
+      - sanity:
+          requires:
+            - FRST
+      - mk7:
+          requires:
+            - FRST
+      - saveRPC:
+          requires:
+            - mk7
+      - assemble-full-docker-image:
+          requires:
+            - saveRPC
+      - cfl:
+          requires:
+            - saveRPC
+      - lpszHeaderTop:
+          requires:
+            - cfl
+      - preview-v2:
+          requires:
+            - lpszHeaderTop
